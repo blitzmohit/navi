@@ -13,10 +13,16 @@
     sortByField=(unless areMetricsFiltered "longName")
     as | metric |
   }}
-    <label class="grouped-list__item-label">
-      <input class="checkbox-selector__checkbox" type="checkbox" onchange={{action "metricClicked" metric}} checked={{get metricsChecked metric.name}}>
+    <span>
+      <NaviIcon
+        @icon="plus-circle"
+        class={{concat "metric-selector__add-icon " (if (get metricsChecked metric.name) "metric-selector__add-icon--selected")}} />
       {{metric.longName}}
-    </label>
+      {{!-- <label class="grouped-list__item-label">
+        <input class="checkbox-selector__checkbox" type="checkbox" onchange={{action "metricClicked" metric}} checked={{get metricsChecked metric.name}}>
+        {{metric.longName}}
+      </label> --}}
+    </span>
 
     {{#navi-icon "question-circle-o" class="grouped-list__item-info"}}
       {{#ember-tooltip side="right" popperContainer="body" effect="none"}}
@@ -39,11 +45,10 @@
         }}
       {{/if}}
       {{#if (can-having metric)}}
-        {{#navi-icon
-          "filter"
-          class=(concat (if (get metricsFiltered metric.name) "checkbox-selector__filter--active ") "checkbox-selector__filter metric-selector__filter")
-          click=(action onToggleMetricFilter metric)
-        }}
+        <a
+          class={{concat (if (get metricsFiltered metric.name) "metric-selector__filter--active ") "metric-selector__filter"}}
+          onclick={{action onToggleMetricFilter metric}}>
+          <span></span>
           {{#ember-tooltip side="right" popperContainer="body" effect="none"}}
             {{#if (has-parameters metric)}}
               {{#if (has-unfiltered-parameters metric request)}}
@@ -59,7 +64,7 @@
               {{/if}}
             {{/if}}
           {{/ember-tooltip}}
-        {{/navi-icon}}
+        </a>
       {{/if}}
     </div>
   {{/grouped-list}}

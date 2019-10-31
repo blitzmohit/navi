@@ -1,21 +1,74 @@
 /**
- * Copyright 2018, Yahoo Holdings Inc.
+ * Copyright 2019, Yahoo Holdings Inc.
  * Licensed under the terms of the MIT license. See accompanying LICENSE.md file for terms.
  */
 
+@metric-selector-icon-width: 12px;
+
 .metric-selector {
+  &__add-icon {
+    color: @denali-brand-600;
+    display: inline-block;
+    font-size: @font-size-base;
+    margin: 2px 2px 0 0;
+    opacity: 0.5;
+
+    &:hover,
+    &--selected {
+      opacity: 1;
+    }
+  }
+
   &__icon-set {
     align-items: center;
     display: flex;
-    margin: 0 15px 0 auto;
+    margin: 0 10px 0 auto;
     &--no-filter {
       .metric-config > div:first-child {
-        margin: 0 5px;
+        margin-right: 2 * @metric-selector-icon-width;
       }
     }
   }
 
   &__filter {
-    margin: 0 5px;
+    cursor: pointer;
+    display: block;
+    margin: 0 (@metric-selector-icon-width / 2) 3px (@metric-selector-icon-width / 2);
+    position: relative;
+    width: @metric-selector-icon-width;
+
+    span {
+      opacity: 0.5;
+    }
+
+    span,
+    span:before,
+    span:after {
+      background: @denali-brand-600;
+      content: '';
+      display: block;
+      height: 2px;
+      position: absolute;
+      width: @metric-selector-icon-width * 3 / 4;
+    }
+
+    span:before {
+      top: -4px;
+      width: @metric-selector-icon-width;
+    }
+
+    span:after {
+      bottom: -4px;
+      width: @metric-selector-icon-width / 2;
+    }
+
+    &:hover,
+    &--active {
+      span,
+      span:before,
+      span:after {
+        opacity: 1;
+      }
+    }
   }
 }
