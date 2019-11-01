@@ -15,8 +15,9 @@
   }}
     <span>
       <NaviIcon
-        @icon="plus-circle"
-        class={{concat "metric-selector__add-icon " (if (get metricsChecked metric.name) "metric-selector__add-icon--selected")}} />
+        @icon={{if (get metricsChecked metric.name) "minus-circle" "plus-circle"}}
+        class={{concat "metric-selector__add-icon " (if (get metricsChecked metric.name) "metric-selector__add-icon--selected")}}
+        onclick={{action "metricClicked" metric}} />
       {{metric.longName}}
       {{!-- <label class="grouped-list__item-label">
         <input class="checkbox-selector__checkbox" type="checkbox" onchange={{action "metricClicked" metric}} checked={{get metricsChecked metric.name}}>
